@@ -1,0 +1,4 @@
+backends/kylin-assistant-daemon/dbus/com.kylin.assistant.sessiondaemon.service /usr/share/dbus-1/services/
+backends/kylin-assistant-daemon/dbus/com.kylin.assistant.systemdaemon.service /usr/share/dbus-1/system-services/
+backends/kylin-assistant-daemon/dbus/com.kylin.assistant.systemdaemon.policy /usr/share/polkit-1/actions/
+backends/kylin-assistant-daemon/dbus/com.kylin.assistant.systemdaemon.conf /etc/dbus-1/system.d/
