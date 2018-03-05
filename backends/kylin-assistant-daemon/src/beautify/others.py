@@ -22,7 +22,7 @@ sys.path.append('/usr/lib/python3/dist-packages/PIL') ## add by hb for python3
 import os
 import re
 import shutil
-import Image
+#import Image
 
 
 # from _pyio import open
@@ -39,35 +39,35 @@ class Others:
         shutil.copy(existingDir + plymouthName + '/default.plymouth', linkFileDir)
 
     # add new custom plymouth
-    def add_new_plymouth(self, customBG, plymouthName):
-        # if plymouthName exist return false
-        existingPlymouth = self.get_existing_plymouth_list()
-        customBG = customBG.encode('utf-8')
-        plymouthName = plymouthName.encode('utf-8')
-        plymouthName
-        if(plymouthName in existingPlymouth):
-            return False
-        else:
-            existingDir = '/var/lib/kylin-assistant-daemon/plymouth/existing/'
-            customScript = '/var/lib/kylin-assistant-daemon/plymouth/defaults/only_background.script'
-            defaultplymouthfile = '/var/lib/kylin-assistant-daemon/plymouth/defaults/default.plymouth'
+#    def add_new_plymouth(self, customBG, plymouthName):
+#        # if plymouthName exist return false
+#        existingPlymouth = self.get_existing_plymouth_list()
+#        customBG = customBG.encode('utf-8')
+#        plymouthName = plymouthName.encode('utf-8')
+#        plymouthName
+#        if(plymouthName in existingPlymouth):
+#            return False
+#        else:
+#            existingDir = '/var/lib/kylin-assistant-daemon/plymouth/existing/'
+#            customScript = '/var/lib/kylin-assistant-daemon/plymouth/defaults/only_background.script'
+#            defaultplymouthfile = '/var/lib/kylin-assistant-daemon/plymouth/defaults/default.plymouth'
 			
-            # add new plymouth conf dir
-            os.mkdir(existingDir + plymouthName)
-            shutil.copy(defaultplymouthfile, existingDir + plymouthName + '/default.plymouth')
-            # modify config file
-            fileHandle = open(existingDir + plymouthName + '/default.plymouth', 'a')
-            fileHandle.write('ImageDir=/lib/plymouth/themes/' + plymouthName + '\n')
-            fileHandle.write('ScriptFile=/lib/plymouth/themes/' + plymouthName + '/kylin.script')
-            fileHandle.close()
+#            # add new plymouth conf dir
+#            os.mkdir(existingDir + plymouthName)
+#            shutil.copy(defaultplymouthfile, existingDir + plymouthName + '/default.plymouth')
+#            # modify config file
+#            fileHandle = open(existingDir + plymouthName + '/default.plymouth', 'a')
+#            fileHandle.write('ImageDir=/lib/plymouth/themes/' + plymouthName + '\n')
+#            fileHandle.write('ScriptFile=/lib/plymouth/themes/' + plymouthName + '/kylin.script')
+#            fileHandle.close()
 
-            # add new system plymouth dir
-            os.mkdir('/lib/plymouth/themes/' + plymouthName)
-            shutil.copy(customScript, '/lib/plymouth/themes/' + plymouthName + '/kylin.script')
-            #shutil.copy(customBG, '/lib/plymouth/themes/' + plymouthName + '/customBG.png')
-            Image.open(customBG).save('/lib/plymouth/themes/' + plymouthName + '/customBG.png')
+#            # add new system plymouth dir
+#            os.mkdir('/lib/plymouth/themes/' + plymouthName)
+#            shutil.copy(customScript, '/lib/plymouth/themes/' + plymouthName + '/kylin.script')
+#            #shutil.copy(customBG, '/lib/plymouth/themes/' + plymouthName + '/customBG.png')
+#            Image.open(customBG).save('/lib/plymouth/themes/' + plymouthName + '/customBG.png')
 			
-            return True
+#            return True
 
     # get existing plymouth list
     def get_existing_plymouth_list(self):

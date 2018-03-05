@@ -400,9 +400,9 @@ class Daemon(PolicyKitService):
         self.otherconf.custom_plymouth_bg(plymouthName)
     
     # add new custom plymouth
-    @dbus.service.method(INTERFACE, in_signature='ss', out_signature='')
-    def add_new_plymouth(self, customBG, plymouthName):
-        self.otherconf.add_new_plymouth(customBG, plymouthName)
+    #@dbus.service.method(INTERFACE, in_signature='ss', out_signature='')
+    #def add_new_plymouth(self, customBG, plymouthName):
+    #    self.otherconf.add_new_plymouth(customBG, plymouthName)
 
     # get existing plymouth list
     @dbus.service.method(INTERFACE, in_signature='', out_signature='as')

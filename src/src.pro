@@ -15,7 +15,7 @@ QT += core dbus network
 
 inst1.files += res/kylin-assistant.png
 inst1.path = /usr/share/pixmaps
-inst2.files += ../youker-assistant.desktop
+inst2.files += ../kylin-assistant.desktop
 inst2.path = /usr/share/applications
 inst3.files += res/default/
 inst3.path = /var/lib/kylin-assistant-daemon/
