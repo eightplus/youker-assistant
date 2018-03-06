@@ -53,9 +53,10 @@ MySearchEdit::MySearchEdit(QWidget *parent)
 
     connect(m_edit, &QLineEdit::textChanged, [this] {m_clearBtn->setVisible(!m_edit->text().isEmpty());});
     connect(m_edit, &QLineEdit::textChanged, this, &MySearchEdit::textChanged, Qt::DirectConnection);
-    connect(m_clearBtn, &MyTristateButton::clicked, this, [=] {
-        this->clearAndFocusEdit();
-    });
+    connect(m_clearBtn, SIGNAL(clicked()), this, SLOT(clearAndFocusEdit()));
+//    connect(m_clearBtn, &MyTristateButton::clicked, this, [=] {
+//        this->clearAndFocusEdit();
+//    });
 }
 
 MySearchEdit::~MySearchEdit()

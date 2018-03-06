@@ -31,6 +31,7 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStyleFactory>
+#include <QObject>
 
 MonitorTitleWidget::MonitorTitleWidget(QSettings *settings, QWidget *parent)
     :QFrame(parent)
@@ -64,6 +65,7 @@ MonitorTitleWidget::~MonitorTitleWidget()
     delete emptyLabel;
     delete m_searchEdit;
     delete m_cancelSearchBtn;
+    delete maxBtn;
 
     if (m_searchTimer) {
         disconnect(m_searchTimer, SIGNAL(timeout()), this, SLOT(onRefreshSearchResult()));
@@ -253,39 +255,77 @@ void MonitorTitleWidget::initTitlebarRightContent()
 
     MyTristateButton *minBtn = new MyTristateButton;
     minBtn->setObjectName("MinButton");
-    connect(minBtn, &MyTristateButton::clicked, this, [=] {
-        if (parentWidget() && parentWidget()->parentWidget()) {
-            parentWidget()->parentWidget()->showMinimized();
-        }
-    });
-    MyTristateButton *maxBtn = new MyTristateButton;
+    connect(minBtn, SIGNAL(clicked()), this, SLOT(onMinBtnClicked()));
+//    connect(minBtn, &MyTristateButton::clicked, this, [=] {
+//        if (parentWidget() && parentWidget()->parentWidget()) {
+//            parentWidget()->parentWidget()->showMinimized();
+//        }
+//    });
+    /*MyTristateButton **/maxBtn = new MyTristateButton;
     maxBtn->setObjectName("MaxButton");
-    connect(maxBtn, &MyTristateButton::clicked, this, [=] {
-        if (window()->isMaximized()) {
-            window()->showNormal();
-            maxBtn->setObjectName("MaxButton");
-        }
-        else {
-            window()->showMaximized();
-            maxBtn->setObjectName("UnMaxButton");
-        }
-    });
-    connect(this, &MonitorTitleWidget::updateMaxBtn, this, [=]{
-        if (window()->isMaximized()) {
-            maxBtn->setObjectName("UnMaxButton");
-        } else {
-            maxBtn->setObjectName("MaxButton");
-        }
-    });
+    connect(maxBtn, SIGNAL(clicked()), this, SLOT(onMaxBtnClicked()));
+//    connect(maxBtn, &MyTristateButton::clicked, this, [=] {
+//        if (window()->isMaximized()) {
+//            window()->showNormal();
+//            maxBtn->setObjectName("MaxButton");
+//        }
+//        else {
+//            window()->showMaximized();
+//            maxBtn->setObjectName("UnMaxButton");
+//        }
+//    });
+//    connect(this, &MonitorTitleWidget::updateMaxBtn, this, [=]{
+//        if (window()->isMaximized()) {
+//            maxBtn->setObjectName("UnMaxButton");
+//        } else {
+//            maxBtn->setObjectName("MaxButton");
+//        }
+//    });
     MyTristateButton *closeBtn = new MyTristateButton;
     closeBtn->setObjectName("CloseButton");
-    connect(closeBtn, &MyTristateButton::clicked, this, [=] {
-        window()->close();
-    });
+    connect(closeBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
+//    connect(closeBtn, &MyTristateButton::clicked, this, [=] {
+//        window()->close();
+//    });
+
+//    connect(this, SIGNAL(updateMaxBtn()), this, SLOT(onUpdateMaxBtnStatusChanged()));
 
     m_titleRightLayout->addWidget(minBtn);
     m_titleRightLayout->addWidget(maxBtn);
     m_titleRightLayout->addWidget(closeBtn);
+}
+
+void MonitorTitleWidget::onMinBtnClicked()
+{
+    if (parentWidget() && parentWidget()->parentWidget()) {
+        parentWidget()->parentWidget()->showMinimized();
+    }
+}
+
+void MonitorTitleWidget::onMaxBtnClicked()
+{
+    if (window()->isMaximized()) {
+        window()->showNormal();
+        maxBtn->setObjectName("MaxButton");
+    }
+    else {
+        window()->showMaximized();
+        maxBtn->setObjectName("UnMaxButton");
+    }
+}
+
+void MonitorTitleWidget::onCloseBtnClicked()
+{
+    window()->close();
+}
+
+void MonitorTitleWidget::onUpdateMaxBtnStatusChanged()
+{
+    if (window()->isMaximized()) {
+        maxBtn->setObjectName("UnMaxButton");
+    } else {
+        maxBtn->setObjectName("MaxButton");
+    }
 }
 
 void MonitorTitleWidget::initToolbarLeftContent()

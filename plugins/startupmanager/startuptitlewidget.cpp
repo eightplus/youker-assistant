@@ -110,19 +110,32 @@ void StartupTitleWidget::initRightContent()
 
     MyTristateButton *minBtn = new MyTristateButton;
     minBtn->setObjectName("MinButton");
-    connect(minBtn, &MyTristateButton::clicked, this, [=] {
-        if (parentWidget() && parentWidget()->parentWidget()) {
-            parentWidget()->parentWidget()->showMinimized();
-        }
-    });
+    connect(minBtn, SIGNAL(clicked()), this, SLOT(onMinBtnClicked()));
+//    connect(minBtn, &MyTristateButton::clicked, this, [=] {
+//        if (parentWidget() && parentWidget()->parentWidget()) {
+//            parentWidget()->parentWidget()->showMinimized();
+//        }
+//    });
 
     MyTristateButton *closeBtn = new MyTristateButton;
     closeBtn->setObjectName("CloseButton");
-    connect(closeBtn, &MyTristateButton::clicked, this, [=] {
-        window()->close();
-    });
+    connect(closeBtn, SIGNAL(clicked()), this, SLOT(onCloseBtnClicked()));
+//    connect(closeBtn, &MyTristateButton::clicked, this, [=] {
+//        window()->close();
+//    });
     m_rLayout->addWidget(minBtn);
     m_rLayout->addWidget(closeBtn);
+}
+
+void StartupTitleWidget::onMinBtnClicked()
+{
+    if (parentWidget() && parentWidget()->parentWidget()) {
+        parentWidget()->parentWidget()->showMinimized();
+    }
+}
+void StartupTitleWidget::onCloseBtnClicked()
+{
+    window()->close();
 }
 
 void StartupTitleWidget::initWidgets()

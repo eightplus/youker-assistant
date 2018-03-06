@@ -83,9 +83,10 @@ PropertiesDialog::PropertiesDialog(QWidget *parent, pid_t processId) : QDialog(p
 
     closeButton = new MyTristateButton();
     closeButton->setObjectName("CloseButton");
-    connect(closeButton, &MyTristateButton::clicked, this, [=] {
-        this->close();
-    });
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+//    connect(closeButton, &MyTristateButton::clicked, this, [=] {
+//        this->close();
+//    });
 
     m_iconLabel = new QLabel();
     m_iconLabel->setStyleSheet("QLabel{background:transparent;border:none;}");

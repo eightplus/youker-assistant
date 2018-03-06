@@ -48,9 +48,10 @@ MyDialog::MyDialog(const QString &title, const QString &message, QWidget *parent
 
     closeButton = new MyTristateButton(this);
     closeButton->setObjectName("CloseButton");
-    connect(closeButton, &MyTristateButton::clicked, this, [=] {
-        this->close();
-    });
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+//    connect(closeButton, &MyTristateButton::clicked, this, [=] {
+//        this->close();
+//    });
     closeButton->setAttribute(Qt::WA_NoMousePropagation);
 
     m_buttonLayout = new QHBoxLayout;

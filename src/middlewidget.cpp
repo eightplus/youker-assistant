@@ -100,7 +100,6 @@ void MiddleWidget::switchSelectedPageIndex(QString index)
 
 void MiddleWidget::showBoxTool()
 {
-    qDebug() << "showBoxTool.................";
 //    if(this->cur_arch == "aarch64" || this->osname == "Kylin" || this->osname == "YHKylin") {
 //        this->switchSelectedPageIndex("3");
 //    }

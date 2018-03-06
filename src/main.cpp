@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
 
     app.setOrganizationName("kylin");
     app.setApplicationName("kylin-assistant");
-    app.setApplicationVersion("1.0.0");
+    app.setApplicationVersion("3.0.0");
 
     Kpplication *app_ins = Kpplication::instance();
     if (app_ins->isRunning()) {

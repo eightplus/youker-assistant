@@ -106,7 +106,8 @@ void SystemMonitor::resizeEvent(QResizeEvent *e)
     if (m_titleWidget) {
         m_titleWidget->resize(width() - 2, MONITOR_TITLE_WIDGET_HEIGHT);
         if (e->oldSize()  != e->size()) {
-            emit m_titleWidget->updateMaxBtn();
+//            emit m_titleWidget->updateMaxBtn();
+            m_titleWidget->onUpdateMaxBtnStatusChanged();
         }
     }
     if (m_sysMonitorStack) {

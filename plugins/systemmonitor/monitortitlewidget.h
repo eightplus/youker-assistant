@@ -29,6 +29,7 @@ class QHBoxLayout;
 class QLabel;
 class QPushButton;
 class MySearchEdit;
+class MyTristateButton;
 
 class MonitorTitleWidget : public QFrame
 {
@@ -48,6 +49,11 @@ public slots:
     void onRefreshSearchResult();
     void handleSearchTextChanged();
     void onCancelSearchBtnClicked(bool b);
+
+    void onMinBtnClicked();
+    void onMaxBtnClicked();
+    void onCloseBtnClicked();
+    void onUpdateMaxBtnStatusChanged();
 
 signals:
     void updateMaxBtn();
@@ -75,6 +81,7 @@ private:
     QHBoxLayout *m_titleLeftLayout = nullptr;
     QHBoxLayout *m_toolLeftLayout = nullptr;
     QHBoxLayout *m_toolRightLayout = nullptr;
+    MyTristateButton *maxBtn = nullptr;
 };
 
 #endif // MONITORTITLEWIDGET_H

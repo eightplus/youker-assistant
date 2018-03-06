@@ -16,7 +16,6 @@ public:
     explicit MySearchEdit(QWidget *parent = 0);
     ~MySearchEdit();
 
-    void clearAndFocusEdit();
     void setPlaceHolder(const QString &text);
     const QString searchedText() const;
     QLineEdit *getLineEdit() const;
@@ -25,6 +24,7 @@ public slots:
     void clearEdit();
     void setEditFocus();
     void setText(const QString & text);
+    void clearAndFocusEdit();
 
 signals:
     void textChanged();

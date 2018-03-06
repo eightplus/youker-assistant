@@ -916,52 +916,53 @@ class DetailInfo:
                 ret_size, ret_in, ret_gamma, ret_maxmode = "", "", "", "", "", "", "", "", ""
         Vga_product,Vga_vendor,Vga_businfo,Vga_Drive = "", "", "", ""
         Vga_num = 0
-        with open("/var/log/Xorg.0.log", "r") as fp:
-            info = fp.read()
-            value = re.findall("EDID for output (.*)", info)
-            for monitor in value:
-                ret = {}
-                p = re.compile(r'Output %s connected' % monitor)
-                for m in p.finditer(info):  # p.finditer(info) 返回一个迭代对象，通常只会循环一次 
-                    Vga_num += 1
-                    #print info.split("EDID for output %s" % monitor)[1].split("EDID for output")[0]
-                    #ret.setdefault("Mon_output", monitor)
-                    ret_output += (monitor + "<1_1>")
-                    localinfo = info.split("EDID for output %s" % monitor)[1].split("EDID for output")[0]
+        if os.path.exists("/var/log/Xorg.0.log"):
+            with open("/var/log/Xorg.0.log", "r") as fp:
+                info = fp.read()
+                value = re.findall("EDID for output (.*)", info)
+                for monitor in value:
+                    ret = {}
+                    p = re.compile(r'Output %s connected' % monitor)
+                    for m in p.finditer(info):  # p.finditer(info) 返回一个迭代对象，通常只会循环一次
+                        Vga_num += 1
+                        #print info.split("EDID for output %s" % monitor)[1].split("EDID for output")[0]
+                        #ret.setdefault("Mon_output", monitor)
+                        ret_output += (monitor + "<1_1>")
+                        localinfo = info.split("EDID for output %s" % monitor)[1].split("EDID for output")[0]
 
-                    result = re.findall('Monitor name: \s*(\w*)\s*(\w*)', localinfo)
-                    result_bak = re.findall("Manufacturer:\s*(\w*)\s*Model:\s*(\w*)", localinfo)
-                    #ret.setdefault("Mon_vendor", result[0][0])
-                    #ret.setdefault("Mon_product", " ".join(result[0]))
-                    if result: ### 笔记本没有Monitor name
-                        ret_vendor += (result[0][0] + "<1_1>")
-                        ret_product += (" ".join(result[0]) + "<1_1>")
-                    else:
-                        ret_vendor += (result_bak[0][0] + "<1_1>")
-                        ret_product += (" ".join(result_bak[0]) + "<1_1>")
+                        result = re.findall('Monitor name: \s*(\w*)\s*(\w*)', localinfo)
+                        result_bak = re.findall("Manufacturer:\s*(\w*)\s*Model:\s*(\w*)", localinfo)
+                        #ret.setdefault("Mon_vendor", result[0][0])
+                        #ret.setdefault("Mon_product", " ".join(result[0]))
+                        if result: ### 笔记本没有Monitor name
+                            ret_vendor += (result[0][0] + "<1_1>")
+                            ret_product += (" ".join(result[0]) + "<1_1>")
+                        else:
+                            ret_vendor += (result_bak[0][0] + "<1_1>")
+                            ret_product += (" ".join(result_bak[0]) + "<1_1>")
 
-                    result = re.findall("Year:\s*(\w*)\s*Week:\s*(\w*)", localinfo)
-                    #ret.setdefault("Mon_year", result[0][0])
-                    #ret.setdefault("Mon_week", result[0][1])
-                    ret_year += (result[0][0] + "<1_1>")
-                    ret_week += (result[0][1] + "<1_1>")
+                        result = re.findall("Year:\s*(\w*)\s*Week:\s*(\w*)", localinfo)
+                        #ret.setdefault("Mon_year", result[0][0])
+                        #ret.setdefault("Mon_week", result[0][1])
+                        ret_year += (result[0][0] + "<1_1>")
+                        ret_week += (result[0][1] + "<1_1>")
 
-                    result = re.findall("Image Size: \s*(\w*) x (\w*)", localinfo)
-                    x = float(result[0][0])/10; y = float(result[0][1])/10; d = math.sqrt(x**2 + y**2)/2.54
-                    #ret.setdefault("Mon_size", (str(x) + " X " + str(y) + " cm"))
-                    #ret.setdefault("Mon_in", str("%.1f" %d))
-                    ret_size += ((str(x) + " X " + str(y) + " cm") + "<1_1>")
-                    ret_in += (str("%.1f" %d) + "<1_1>")
+                        result = re.findall("Image Size: \s*(\w*) x (\w*)", localinfo)
+                        x = float(result[0][0])/10; y = float(result[0][1])/10; d = math.sqrt(x**2 + y**2)/2.54
+                        #ret.setdefault("Mon_size", (str(x) + " X " + str(y) + " cm"))
+                        #ret.setdefault("Mon_in", str("%.1f" %d))
+                        ret_size += ((str(x) + " X " + str(y) + " cm") + "<1_1>")
+                        ret_in += (str("%.1f" %d) + "<1_1>")
 
-                    result = re.findall("Gamma: (\S*)", localinfo)
-                    #ret.setdefault("Mon_gamma", result[0])
-                    ret_gamma += (result[0] + "<1_1>")
+                        result = re.findall("Gamma: (\S*)", localinfo)
+                        #ret.setdefault("Mon_gamma", result[0])
+                        ret_gamma += (result[0] + "<1_1>")
 
-                    h = re.findall("h_active: (\d*)", localinfo); v = re.findall("v_active: (\d*)", localinfo)
-                    #ret.setdefault("Mon_maxmode", h[0] + "X" + v[0])
-                    ret_maxmode += ((h[0] + "X" + v[0]) + "<1_1>")
+                        h = re.findall("h_active: (\d*)", localinfo); v = re.findall("v_active: (\d*)", localinfo)
+                        #ret.setdefault("Mon_maxmode", h[0] + "X" + v[0])
+                        ret_maxmode += ((h[0] + "X" + v[0]) + "<1_1>")
 
-                    Vga_businfo += "<1_1>"; Vga_product += "<1_1>"; Vga_vendor += "<1_1>"; Vga_Drive += "<1_1>"
+                        Vga_businfo += "<1_1>"; Vga_product += "<1_1>"; Vga_vendor += "<1_1>"; Vga_Drive += "<1_1>"
 
         status, output = subprocess.getstatusoutput('lspci -vvv')
         if not status:

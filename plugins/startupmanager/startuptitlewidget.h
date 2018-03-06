@@ -35,6 +35,10 @@ public:
     void initRightContent();
     void initWidgets();
 
+public slots:
+    void onMinBtnClicked();
+    void onCloseBtnClicked();
+
 //protected:
 //    void paintEvent(QPaintEvent *e) override;
 

@@ -39,6 +39,7 @@ public:
     ButtonState getButtonState() const;
 
 signals:
+//Q_SIGNALS:
     void clicked();
     void stateChanged();
 
