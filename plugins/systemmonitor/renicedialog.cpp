@@ -34,8 +34,8 @@ ReniceDialog::ReniceDialog(const QString &title, QWidget *parent)
     , m_mousePressed(false)
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setFixedSize(464, 200);
-    this->setFixedSize(464+SHADOW_LEFT_TOP_PADDING+SHADOW_LEFT_TOP_PADDING, 200+SHADOW_RIGHT_BOTTOM_PADDING+SHADOW_RIGHT_BOTTOM_PADDING);
+    this->setFixedSize(464, 240);
+    this->setFixedSize(464+SHADOW_LEFT_TOP_PADDING+SHADOW_LEFT_TOP_PADDING, 240+SHADOW_RIGHT_BOTTOM_PADDING+SHADOW_RIGHT_BOTTOM_PADDING);
     this->setContentsMargins(SHADOW_LEFT_TOP_PADDING,SHADOW_LEFT_TOP_PADDING,SHADOW_RIGHT_BOTTOM_PADDING,SHADOW_RIGHT_BOTTOM_PADDING);
     this->setStyleSheet("QDialog{border: 1px solid white;border-radius:1px;background-color: #ffffff;}");
     this->setWindowIcon(QIcon(":/res/kylin-assistant.png"));
